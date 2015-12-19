@@ -1,4 +1,4 @@
-## Partita a tris tra due utenti
+## Partita a tris tra un'utente e un IA
 
 from random import randint
 
@@ -98,8 +98,8 @@ def iswin(label, number_now, sign):
         for s in r:
             if s == symbol:
                 count = count + 1
-        if count == number_now and symbol == sign :
-            finisch = True
+        if count == number_now and symbol == sign:
+                finisch = True
 
     ''' Analizzo colonne '''
     for n in range(3):
@@ -138,30 +138,18 @@ def iswin(label, number_now, sign):
 # IA Bob
 def botMove(possible_move, label):
     bot_move_list = []
-    if iswin(label, 2, "x"):
-        move = win_move(label)
-        if type(move) == type(int()):
-            r = label[move]
-            index = 0
-            for e in r:
-                if e == "*":
-                    bot_move_list = [move, index]
-                    print(bot_move_list)
-                    return bot_move_list
-                index = index + 1
-        else:
-            return move
+    move = win_move(label)
+    if type(move) == type(list()) and label[move[0]][move[1]] == "*":
+        return move
     else:
         index_casual_r = possible_move[randint(0,1)]
         casual_r = label[index_casual_r]
         move = possible_move[randint(0,1)]
-        while True: # @param simbol
-            index_casual_r = possible_move[randint(0,1)]
-            casual_r = label[index_casual_r]
-            move = possible_move[randint(0,1)]
-            if casual_r[move] == "*":
-                break
-        print(bot_move_list)
+        while casual_r[move] != "*":
+            if casual_r[move] != "*":
+                index_casual_r = possible_move[randint(0,1)]
+                casual_r = label[index_casual_r]
+                move = possible_move[randint(0,1)]
         bot_move_list = [index_casual_r, move]
         return bot_move_list
 
@@ -177,12 +165,12 @@ def win_move(label):
             if s == "x":
                 count = count + 1
             if count == 2:
-                s_index = 0 #indice secondario
                 for n in range(3):
                     if r[n] == "*":
                         r_win  = [r_position, n]
                         return r_win
             index = index + 1
+        r_position = r_position + 1
     # Colonne
     for n in range(3):
         count = 0
