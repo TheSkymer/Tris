@@ -157,9 +157,8 @@ def botMove(possible_move, label):
 def win_move(label):
     r_win = []
     # Righe
+    r_position = 0
     for r in label:
-        r_position = 0
-        index = 0
         count = 0
         for s in r:
             if s == "x":
@@ -169,7 +168,6 @@ def win_move(label):
                     if r[n] == "*":
                         r_win  = [r_position, n]
                         return r_win
-            index = index + 1
         r_position = r_position + 1
     # Colonne
     for n in range(3):
