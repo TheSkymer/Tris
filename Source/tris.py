@@ -138,9 +138,14 @@ def iswin(label, number_now, sign):
 # IA Bob
 def botMove(possible_move, label):
     bot_move_list = []
-    move = win_move(label)
-    if type(move) == type(list()) and label[move[0]][move[1]] == "*":
-        return move
+    player_move = win_move(label, "o")
+    bot_move = win_move(label, "x")
+    if type(bot_move) == type(list()) and label[bot_move[0]][bot_move[1]] == "*":
+        bot_move_list = bot_move
+
+    elif type(player_move) == type(list()) and label[player_move[0]][player_move[1]] == "*":
+        bot_move_list = player_move
+        
     else:
         index_casual_r = possible_move[randint(0,1)]
         casual_r = label[index_casual_r]
@@ -151,17 +156,17 @@ def botMove(possible_move, label):
                 casual_r = label[index_casual_r]
                 move = possible_move[randint(0,1)]
         bot_move_list = [index_casual_r, move]
-        return bot_move_list
+    return bot_move_list
 
 # Mossa vincente 3 mossa Bob nn va problema win_move nelle colonne
-def win_move(label):
+def win_move(label, sign):
     r_win = []
     # Righe
     r_position = 0
     for r in label:
         count = 0
         for s in r:
-            if s == "x":
+            if s == sign:
                 count = count + 1
             if count == 2:
                 for n in range(3):
@@ -174,7 +179,7 @@ def win_move(label):
         count = 0
         index = 0
         for r in label:
-            if r[n] == "x":
+            if r[n] == sign:
                 count = count + 1
             if count == 2:
                 s_index = 0
@@ -197,7 +202,7 @@ def win_move(label):
             symbol = label[0][n+1]
         count = 0
         for r in label:
-            if r[i] == "x":
+            if r[i] == sign:
                 count = count + 1
             if i >= 0:
                 i = i + 1
