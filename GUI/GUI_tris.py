@@ -103,10 +103,12 @@ class App:
 
         # Inserisco il segno all'interno della matrice
         array[row][column] = button["text"]
-
+        
+        # Controllo se la partita è terminata
         if iswin(array, 3, sign):
-            root.destroy()
             print(sign + " player win")
+            input()
+            root.destroy()
 
 # Avvio programma
 if __name__ == "__main__":
