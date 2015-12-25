@@ -15,6 +15,7 @@ def main():
     root = Tk()
     root.wm_iconbitmap("favicon.ico")
     app = App(root)
+    root.mainloop()
 
 # determina la vittoria
 def iswin(label, number_now, sign):
